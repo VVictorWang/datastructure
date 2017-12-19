@@ -15,7 +15,7 @@ int main() {
 
   printf("before sort:\n");
   visit(test, 9);
-  TwoRoutesInsertionSort(test, 9);
+  ShellSort(test, 9);
   printf("after sort:\n");
   visit(test, 9);
 }

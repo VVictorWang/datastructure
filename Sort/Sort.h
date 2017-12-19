@@ -18,7 +18,9 @@ typedef struct ELEMTYPE {
   Node data;
 } ElemType;
 
-void InsertionSort(ElemType *, int);  //插入排序(O(n^2))
-void BinaryInsertionSort(ElemType *,int ); //折半插入排序(O(n^2))
-void TwoRoutesInsertionSort(ElemType *,int ); //2路插入排序(O(n^2))
+void InsertionSort(ElemType *, int);          //插入排序(O(n^2))
+void BinaryInsertionSort(ElemType *, int);    //折半插入排序(O(n^2))
+void TwoRoutesInsertionSort(ElemType *, int); // 2路插入排序(O(n^2))
+void ShellSort(ElemType *, int);              //希尔排序
+
 #endif

@@ -84,3 +84,24 @@ void TwoRoutesInsertionSort(ElemType *E, int n) {
     E[j] = temp[(j + first) % n];
   }
 }
+
+/**
+ * @brief  shell sort
+ * @note
+ * @param  *E: the data list
+ * @param  n: the size of the data list
+ * @retval None
+ */
+void ShellSort(ElemType *E, int n) {
+  int j, k, increment;
+  ElemType temp;
+  for (increment = n / 2; increment > 0; increment /= 2) {
+    for (j = increment; j < n; j++) {
+      temp = E[j];
+      for (k = j; E[k - 1].key > temp.key && k >= increment; k -= increment) {
+        E[k] = E[k - 1];
+      }
+      E[k] = temp;
+    }
+  }
+}
