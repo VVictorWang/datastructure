@@ -297,3 +297,139 @@ void QuickSort(ElemType *E, int left, int right) {
   QuickSort(E, left, pivot - 1);
   QuickSort(E, pivot + 1, right);
 }
+
+/**
+ * @brief  count sort
+ * @note
+ * @param  *E: the data list
+ * @param  n: the size of the data list
+ * @retval None
+ */
+void CountSort(ElemType *E, int n) {
+  int i = 0;
+  int max = E[0].key;
+  for (i = 0; i < n; i++)
+    if (E[i].key > max)
+      max = E[i].key;
+  int count[max + 1];
+  for (i = 0; i <= max; i++)
+    count[i] = 0;
+  for (i = 0; i < n; i++)
+    count[E[i].key]++;
+  for (i = 1; i <= max; i++)
+    count[i] += count[i - 1];
+  ElemType temp[n];
+  for (i = n - 1; i >= 0; i--)
+    temp[--count[E[i].key]] = E[i];
+  for (i = 0; i < n; i++)
+    E[i] = temp[i];
+}
+
+/**
+ * @brief  get the d th number of x
+ * @note
+ * @param  x: the number
+ * @param  d: the digit
+ * @retval
+ */
+int getDigit(int x, int d) {
+  if (d == 1)
+    return x % 10;
+  return (x / ((d - 1) * 10)) % 10;
+}
+
+/**
+ * @brief  sort the array by the d th number
+ * @note
+ * @param  *E:
+ * @param  n:
+ * @param  d:
+ * @retval None
+ */
+void CountingSort(ElemType *E, int n, int d) {
+  int i = 0;
+  int count[10];
+  for (i = 0; i < 10; i++)
+    count[i] = 0;
+  for (i = 0; i < n; i++)
+    count[getDigit(E[i].key, d)]++;
+  for (i = 1; i < 10; i++)
+    count[i] += count[i - 1];
+  ElemType temp[n];
+  for (i = n - 1; i >= 0; i--)
+    temp[--count[getDigit(E[i].key, d)]] = E[i];
+  for (i = 0; i < n; i++)
+    E[i] = temp[i];
+}
+
+/**
+ * @brief  radix sort
+ * @note
+ * @param  *E: the data list
+ * @param  n: the size of the data list
+ * @retval None
+ */
+void RadixSort(ElemType *E, int n) {
+  int i = 0;
+  int max = E[0].key;
+  for (i = 0; i < n; i++)
+    if (E[i].key > max)
+      max = E[i].key;
+  int digit = 0;
+  while (max != 0) {
+    max /= 10;
+    digit++;
+  }
+  for (i = 1; i <= digit; i++)
+    CountingSort(E, n, i);
+}
+
+int MapToBucket(int x) {
+  return x /
+         10; // 映射函数f(x)，作用相当于快排中的Partition，把大量数据分割成基本有序的数据块
+}
+
+#define BUCKET_SIZE 5    // the size of the bucket
+int BUCKET[BUCKET_SIZE]; // the buckets
+
+/** using count sort to get the buckets
+ * @brief
+ * @note
+ * @param  *E:
+ * @param  n:
+ * @retval None
+ */
+void CountingSortBucket(ElemType *E, int n) {
+  int i = 0;
+  for (i = 0; i < BUCKET_SIZE; i++)
+    BUCKET[i] = 0;
+  for (i = 0; i < n; i++)
+    BUCKET[MapToBucket(E[i].key)]++;
+  for (i = 1; i < BUCKET_SIZE; i++)
+    BUCKET[i] += BUCKET[i - 1];
+  ElemType temp[n];
+  for (i = n - 1; i >= 0; i--)
+    temp[--BUCKET[MapToBucket(E[i].key)]] = E[i];
+  for (i = 0; i < n; i++)
+    E[i] = temp[i];
+}
+
+/**
+ * @brief  bucket sort
+ * @note
+ * @param  *E: the data list
+ * @param  n: the size of the data list
+ * @retval None
+ */
+void BucketSort(ElemType *E, int n) {
+  CountingSortBucket(E, n); // 利用计数排序确定各个桶的边界（分桶）
+  int i = 0;
+  for (; i < BUCKET_SIZE; i++) {
+    int left = BUCKET[i]; // C[i]为i号桶第一个元素的位置
+    int right = (i == BUCKET_SIZE - 1)
+                    ? (n - 1)
+                    : (BUCKET[i + 1] - 1); // C[i+1]-1为i号桶最后一个元素的位置
+    if (left < right) // 对元素个数大于1的桶进行桶内快速排序
+      QuickSort(E, left, right);
+  }
+}

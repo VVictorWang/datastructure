@@ -14,7 +14,7 @@ int main() {
 
   printf("before sort:\n");
   visit(test, 9);
-  QuickSort(test, 0, 9);
+  BucketSort(test, 9);
   printf("after sort:\n");
   visit(test, 9);
 }
