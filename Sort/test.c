@@ -9,13 +9,12 @@ void visit(ElemType *A, int n) {
 }
 
 int main() {
-  ElemType test[10] = {
-      {20, {40}}, {2, {5}},  {5, {89}}, {19, {45}},
-      {3, {90}},  {89, {2}}, {16, {8}}, {34, {56}}, {11, {81}}};
+  ElemType test[10] = {{20, {40}}, {2, {5}},  {5, {89}},  {19, {45}}, {3, {90}},
+                       {89, {2}},  {16, {8}}, {34, {56}}, {11, {81}}};
 
   printf("before sort:\n");
   visit(test, 9);
-  ShellSort(test, 9);
+  QuickSort(test, 0, 9);
   printf("after sort:\n");
   visit(test, 9);
 }

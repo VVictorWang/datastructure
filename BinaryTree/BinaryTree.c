@@ -1,13 +1,18 @@
 /*
  * @Author: victor 
- * @Date: 2017-12-19 21:33:00 
+ * @Date: 2017-12-22 20:26:48 
  * @Last Modified by:   victor 
- * @Last Modified time: 2017-12-19 21:33:00 
+ * @Last Modified time: 2017-12-22 20:26:48 
  */
 
 #include "BinaryTree.h"
 
-
+/** 
+ * @brief  allocate space to the node and assign it with e
+ * @param  *node: the node to be allocated
+ * @param  e: the value to be assigned
+ * @retval None
+ */
 void allocateNode(BNode *node, ElemType e) {
     *node = (BNode) malloc(sizeof(BNODE));
     (*node)->left = NULL;
@@ -15,6 +20,12 @@ void allocateNode(BNode *node, ElemType e) {
     (*node)->data = e;
 }
 
+/** 
+ * @brief  init an empty tree
+ * @note   
+ * @param  *T: the tree to be inited
+ * @retval 
+ */
 Status InitBiTree(BTree *T) {
     if (*T) {
         printf("the tree already exists!");
@@ -25,6 +36,12 @@ Status InitBiTree(BTree *T) {
     return OK;
 }
 
+/** 
+ * @brief  destroy the node and all of its children
+ * @note   
+ * @param  *node: the node to be destroyed
+ * @retval None
+ */
 void DestroyNode(BNode *node) {
     if (!*node) {
         return;
@@ -35,6 +52,12 @@ void DestroyNode(BNode *node) {
     *node = NULL;
 }
 
+/** 
+ * @brief  destroy a tree
+ * @note   
+ * @param  *T: the tree to be destroyed
+ * @retval 
+ */
 Status DestroyBiTree(BTree *T) {
     if (!(*T)) {
         printf("the tree doesn't exists!\n");
@@ -46,6 +69,13 @@ Status DestroyBiTree(BTree *T) {
     return OK;
 }
 
+/** 
+ * @brief  
+ * @note   
+ * @param  *node: 
+ * @param  e: 
+ * @retval None
+ */
 void InsertData(BNode *node, ElemType e) {
     if (*node == NULL) {
         allocateNode(node, e);
@@ -67,7 +97,7 @@ void CreateBiTree(BTree *T, const ElemType *data) {
     int i = 0;
     InitBiTree(T);
     while (data[i].key != 0) {
-        InsertData(&(*T)->root, data[i]);
+        InsertData(&((*T)->root), data[i]);
         i++;
     }
 }
@@ -83,6 +113,7 @@ void InsertDataWithoutRightC(BNode *node, ElemType e) {
 
 void CreateBiTreeWithoutRightChild(BTree *T, const ElemType *data) {
     int i = 0;
+    printf("ok1");
     InitBiTree(T);
     while (data[i].key != 0) {
         InsertDataWithoutRightC(&(*T)->root, data[i]);
@@ -100,6 +131,7 @@ Status ClearBiTree(BTree *T) {
         return INFEASTABLE;
     }
     DestroyNode(&(*T)->root);
+    return OK;
 }
 
 int BiTreeEmpty(BTree T) {
@@ -197,7 +229,7 @@ BNode Parent(BTree T, int e) {
 }
 
 BNode LeftChild(BTree T, int e) {
-    if (T) {
+    if (!T) {
         printf("the tree not exists!\n");
         return NULL;
     }
@@ -242,7 +274,7 @@ BNode LeftSibling(BTree T, int e) {
     }
 }
 
-Status InsertChild(BTree *T, int p, int LR, BTree c) {
+Status InsertChild(BTree *T, int p, int LR, BTree* c) {
     if (!*T || !c) {
         printf("the tree not exists!\n");
         return INFEASTABLE;
@@ -253,11 +285,11 @@ Status InsertChild(BTree *T, int p, int LR, BTree c) {
         return ERROR;
     }
     if (LR == 0) {
-        c->root->right = node->left;
-        node->left = c->root;
+        (*c)->root->right = node->left;
+        node->left = (*c)->root;
     } else {
-        c->root->right = node->right;
-        node->right = c->root;
+        (*c)->root->right = node->right;
+        node->right = (*c)->root;
     }
     return OK;
 }
@@ -422,3 +454,5 @@ Status GetDataFromFile(BTree T, char *filename) {
     fclose(p);
     return OK;
 }
+
+

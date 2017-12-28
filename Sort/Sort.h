@@ -18,9 +18,14 @@ typedef struct ELEMTYPE {
   Node data;
 } ElemType;
 
+void BubbleSort(ElemType *,int); //冒泡排序
+void SelectionSort(ElemType *,int); //选择排序
+void MergeSort(ElemType *,int);  //归并排序
 void InsertionSort(ElemType *, int);          //插入排序(O(n^2))
 void BinaryInsertionSort(ElemType *, int);    //折半插入排序(O(n^2))
 void TwoRoutesInsertionSort(ElemType *, int); // 2路插入排序(O(n^2))
 void ShellSort(ElemType *, int);              //希尔排序
+void HeapSort(ElemType *,int);  //堆排序
+void QuickSort(ElemType *,int,int); //快速排序
 
 #endif

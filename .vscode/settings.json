@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "list.h": "c"
+        "list.h": "c",
+        "chrono": "c",
+        "limits": "c"
     }
 }

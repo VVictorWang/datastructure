@@ -1,9 +1,8 @@
-/*
- * @Author: victor 
- * @Date: 2017-12-19 21:32:20 
- * @Last Modified by: victor
- * @Last Modified time: 2017-12-19 21:35:07
- */
+//
+// Created by victor on 12/15/17.
+// email: chengyiwang@hustunique.com
+// blog:  www.victorwang.science
+//
 
 #ifndef DATASTRUCTURE_BINARYTREE_H
 #define DATASTRUCTURE_BINARYTREE_H
@@ -18,9 +17,9 @@
 #define FALSE 0 //函数返回false
 #define  INFEASTABLE -1 //操作不可行
 #define OVERFLOW -2 //栈溢出
-#define NOTFOUND -3
+#define NOTFOUND -3 //未找到
 
-typedef int Status;
+typedef int Status; //函数执行后返回的状态
 
 typedef struct ELEMTYPE {
     int key;
@@ -38,7 +37,7 @@ typedef struct BINARYTREE {
 } *BTree, BTREE;
 
 
-void start(BTree *, int);
+void start(BTree *, int); //程序开始
 
 Status InitBiTree(BTree *);  //创建一颗空树
 
@@ -56,37 +55,35 @@ int BiTreeEmpty(BTree); //判定二叉树是否为空树
 
 int BiTreeDepth(BTree); //求二叉树的深度
 
-//BTree Root(BTree); //返回根
-BNode findNode(BNode node, int key);
+BNode findNode(BNode node, int key);  //根据指定的key查找节点
 
-char Value(BTree T, int key);
+char Value(BTree T, int key); //返回key节点的值
 
-Status Assign(BTree T, int e, char value);
+Status Assign(BTree T, int e, char value); //重新给key节点赋值为value
 
-BNode Parent(BTree T, int e);
+BNode Parent(BTree T, int e); //返回key为e的节点的父节点
 
-BNode LeftChild(BTree T, int e);
+BNode LeftChild(BTree T, int e); //返回key为e的节点的左孩子节点
 
-BNode RightChild(BTree T, int e);
+BNode RightChild(BTree T, int e); //返回key为e的节点的右孩子节点
 
-BNode RightSibling(BTree T, int e);
+BNode RightSibling(BTree T, int e); //返回key为e的节点的右兄弟节点
 
-BNode LeftSibling(BTree T, int e);
+BNode LeftSibling(BTree T, int e); //返回key为e的节点的左兄弟节点
 
-Status InsertChild(BTree *T, int p, int LR, BTree c);
+Status InsertChild(BTree *T, int p, int LR, BTree* c); //插入子树
 
-Status DeleteChild(BTree *T, int p, int LR);
+Status DeleteChild(BTree *T, int p, int LR); //删除子树
 
-Status PreOrderTraverse(BTree, void (ElemType));
+Status PreOrderTraverse(BTree, void (ElemType)); //前序遍历
 
-Status InOrderTraverse(BTree, void (ElemType));
+Status InOrderTraverse(BTree, void (ElemType)); //中序遍历
 
-Status PostOrderTraverse(BTree, void (ElemType));
+Status PostOrderTraverse(BTree, void (ElemType)); //后序遍历
 
-Status LevelOrderTraverse(BTree T, void (ElemType));
+Status LevelOrderTraverse(BTree T, void (ElemType)); //层序遍历
 
-Status WriteDataToFile(BTree, char *);
+Status WriteDataToFile(BTree, char *); //文件保存
 
-Status GetDataFromFile(BTree, char *);
-
-#endif //DATASTRUCTURE_BINARYTREE_H
+Status GetDataFromFile(BTree, char *); //文件恢复
+#endif; //DATASTRUCTURE_BINARYTREE_H

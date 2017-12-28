@@ -1,8 +1,8 @@
 /*
  * @Author: victor 
- * @Date: 2017-12-19 21:34:12 
+ * @Date: 2017-12-22 20:27:06 
  * @Last Modified by:   victor 
- * @Last Modified time: 2017-12-19 21:34:12 
+ * @Last Modified time: 2017-12-22 20:27:06 
  */
 
 #include "BinaryTree.h"
@@ -18,7 +18,7 @@ void visit(ElemType e) {
 void start(BTree *L, int excel_length) {
     int op = 1;
     int excel = 1;
-    printf("请选择你要操作的二叉树： (1~%d): ", excel_length);
+    printf("please select the tree index you want to operate： (1~%d): ", excel_length);
     scanf("%d", &excel);
     while (op) {
         printf("\n\n");
@@ -38,7 +38,7 @@ void start(BTree *L, int excel_length) {
         printf("    	  23. GetDataFromFile\n");
         printf("    	  0. Exit\n");
         printf("-------------------------------------------------\n");
-        printf("    请选择你的操作[0~23]:");
+        printf("    please choose your operation[0~23]:");
         scanf("%d", &op);
         int isEmpty;
         int status1;
@@ -47,37 +47,37 @@ void start(BTree *L, int excel_length) {
             case 1:
                 status1 = InitBiTree(&(L[excel - 1]));
                 if (status1 == OK) {
-                    printf("空二叉树表创建成功！\n");
+                    printf("empty tree created successfully!\n");
                 } else
-                    printf("空二叉树创建失败！\n");
+                    printf("empty tree created failure!\n");
                 getchar();
                 break;
             case 2:
                 if (DestroyBiTree(&(L[excel - 1])) == OK)
-                    printf("\n----二叉树已销毁！\n");
+                    printf("\n----the tree has been destroyed！\n");
                 else
-                    printf("\n----销毁失败!\n");
+                    printf("\n----destroy failure!\n");
                 getchar();
                 break;
             case 3:
                 if (ClearBiTree(&(L[excel - 1])) == OK) {
-                    printf("\n----二叉树已清空！\n");
+                    printf("\n----the tree has been cleaned！\n");
                 } else {
-                    printf("\n----清空失败！\n");
+                    printf("\n----clean failure\n");
                 }
                 getchar();
                 break;
             case 4:
                 isEmpty = BiTreeEmpty(L[excel - 1]);
                 if (isEmpty) {
-                    printf("\n---二叉树是空的!\n");
+                    printf("\n---the tree is empty!\n");
                 } else {
-                    printf("\n---二叉树不是空的!\n");
+                    printf("\n---the tree is not empty!\n");
                 }
                 getchar();
                 break;
             case 5:
-                printf("\n----二叉树的深度度是:%d\n", BiTreeDepth(L[excel - 1]));
+                printf("\n----the depth of the tree is:%d\n", BiTreeDepth(L[excel - 1]));
                 getchar();
                 break;
             case 6:
@@ -186,7 +186,8 @@ void start(BTree *L, int excel_length) {
                 printf("input the tree without right child(input key and values):\n");
                 scanf("%d %c", &key, &vaule);
                 ei = 0;
-                while (key != 0 && vaule != '0') {
+                printf("oko1");
+                while (key != 0) {
                     e[ei].key = key;
                     e[ei].others = vaule;
                     ei++;
@@ -195,10 +196,14 @@ void start(BTree *L, int excel_length) {
                 e[ei].key = 0;
                 e[ei].others = '0';
                 BTree C;
+                C = NULL;
+                printf("ok20");
                 CreateBiTreeWithoutRightChild(&C, e);
-                if (InsertChild(&L[excel - 1], insertkey, LR, C) == OK) {
-                    printf("insert child successfully!\n");
-                }
+//                PreOrderTraverse(C, visit);
+                InsertChild(&(L[excel - 1]), insertkey, LR, &C);
+//                if (InsertChild(&L[excel - 1], insertkey, LR, C) == OK) {
+//                    printf("insert child successfully!\n");
+//                }
                 getchar();
                 break;
             case 16:
@@ -233,26 +238,26 @@ void start(BTree *L, int excel_length) {
                 getchar();
                 break;
             case 22:
-                printf("请输入文件名（保存在当前文件夹下):");
+                printf("please input the file name:");
                 scanf("%s", filename);
                 if (WriteDataToFile(L[excel - 1], filename) == OK) {
-                    printf("\n---写入文件%s成功！\n", filename);
+                    printf("\n---write to file % successfully！\n", filename);
                 } else
-                    printf("\n---写入文件失败!\n");
+                    printf("\n---unexpected error happened!\n");
                 getchar();
                 break;
             case 23:
-                printf("请输入文件名（保存在当前文件夹下):");
+                printf("please input the file name:");
                 scanf("%s", filename);
                 if (GetDataFromFile(L[excel - 1], filename) == OK) {
-                    printf("\n---读取文件%s成功！\n", filename);
+                    printf("\n---get data from file %s successfully！\n", filename);
                 } else
-                    printf("\n---读取文件失败!\n");
+                    printf("\n---unexpected error happened!\n");
                 getchar();
                 break;
             case 0:
                 break;
         } // end of switch
     }   // end of while
-    printf("欢迎下次再使用本系统！\n");
+    printf("Good Bye!\n");
 }
